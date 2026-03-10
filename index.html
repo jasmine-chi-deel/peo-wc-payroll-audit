@@ -240,7 +240,12 @@ async function runAudit() {
       if (v===""||v.includes("peo")||v.includes("client no")) return false;
       return true;
     });
-    const clientData = sheetToJson(clientWb);
+    const clientData = sheetToJson(clientWb).filter(row => {
+      const legalName = String(Object.values(row)[1] || "").trim();
+      if (legalName === "") return false;
+      if (legalName.includes("IMPL CLONE ACCOUNT")) return false;
+      return true;
+    });
     const employeeData = sheetToJson(employeeWb);
     const payrollData = sheetToJson(payrollWb);
 
@@ -310,7 +315,7 @@ async function runAudit() {
         const hasActive = statuses.some(s=>!s.includes("terminat")&&!s.includes("leave")&&!s.includes("absence")&&!s.includes("furlough")&&s!=="");
         const anyLeave = statuses.some(s=>s.includes("leave")||s.includes("absence"));
         const anyFurlough = statuses.some(s=>s.includes("furlough"));
-        const anyFutureHire = entries.some(e=>e.hireDate&&isFutureMonth(e.hireDate,mon,year));
+        const anyFutureHire = entries.some(e=>e.hireDate&&isFuturePayrollDate(e.hireDate,mon,year));
         if (anyFutureHire) { decision="Keep"; comment="Delayed Start Date"; }
         else if (hasActive) { decision="Keep"; comment="In Review"; }
         else if (anyFurlough) { decision="Keep"; comment="In Review"; }
