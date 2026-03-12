@@ -12,456 +12,545 @@
     h1 { font-size: 22px; font-weight: 700; color: #111; }
     .subtitle { font-size: 13px; color: #6b7280; margin-top: 4px; margin-bottom: 28px; }
     .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-    label.block { display: block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px; }
-    input[type=month] { border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 13px; outline: none; }
-    input[type=month]:focus { border-color: #6b7280; box-shadow: 0 0 0 2px #e5e7eb; }
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .section-label { font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+    input[type=month] { border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 13px; outline: none; margin-top: 4px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
     .dropzone { border: 2px dashed #e5e7eb; border-radius: 12px; padding: 16px; transition: all 0.2s; }
     .dropzone.active { border-color: #34d399; background: #f0fdf4; }
-    .dropzone.full { grid-column: span 2; }
-    .dropzone-label { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 2px; }
-    .dropzone-desc { font-size: 11px; color: #9ca3af; margin-bottom: 10px; }
-    .tag { font-size: 10px; background: #f3f4f6; color: #6b7280; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
-    .tag.main { background: #111; color: #fff; }
+    .dz-label { font-size: 13px; font-weight: 600; color: #111; display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+    .dz-desc { font-size: 11px; color: #9ca3af; margin-bottom: 10px; }
+    .tag { font-size: 10px; padding: 2px 8px; border-radius: 999px; }
+    .tag-main { background: #111; color: #fff; }
+    .tag-prism { background: #f3f4f6; color: #6b7280; }
+    .tag-optional { background: #fef9c3; color: #92400e; }
     .file-chosen { font-size: 11px; color: #059669; font-weight: 500; }
     .btn-choose { font-size: 11px; background: #111; color: #fff; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: inline-block; }
     .btn-choose:hover { background: #374151; }
     .btn-remove { font-size: 11px; color: #9ca3af; background: none; border: none; cursor: pointer; margin-left: 8px; }
     .btn-remove:hover { color: #ef4444; }
-    .btn-run { width: 100%; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; margin-top: 16px; transition: all 0.2s; }
+    .btn-run { width: 100%; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; margin-top: 20px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .btn-run.ready { background: #111; color: #fff; }
     .btn-run.ready:hover { background: #374151; }
     .btn-run.disabled { background: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
     .error { background: #fef2f2; color: #dc2626; border-radius: 8px; padding: 12px; font-size: 13px; margin-top: 12px; }
-    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 20px; align-items: center; }
+    .tab { padding: 10px 16px; font-size: 13px; font-weight: 500; border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; color: #9ca3af; transition: all 0.2s; }
+    .tab.active { border-bottom-color: #111; color: #111; }
+    .tab-badge { font-size: 10px; background: #f3f4f6; color: #6b7280; padding: 2px 6px; border-radius: 999px; margin-left: 6px; }
+    .btn-new { margin-left: auto; font-size: 12px; color: #9ca3af; background: none; border: none; cursor: pointer; padding: 8px; }
+    .btn-new:hover { color: #374151; }
+    .summary-grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+    .summary-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
     .summary-card { border-radius: 12px; padding: 16px; color: #fff; }
     .summary-card .val { font-size: 28px; font-weight: 700; }
-    .summary-card .lbl { font-size: 13px; opacity: 0.8; margin-top: 2px; }
-    .bg-dark { background: #111; }
-    .bg-green { background: #16a34a; }
-    .bg-red { background: #dc2626; }
-    .bg-yellow { background: #d97706; }
+    .summary-card .lbl { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+    .bg-dark { background: #111; } .bg-green { background: #16a34a; } .bg-red { background: #dc2626; } .bg-yellow { background: #d97706; } .bg-blue { background: #2563eb; }
     .breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .breakdown-item { border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent; }
+    .breakdown-item { border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; }
     .breakdown-item .reason { font-size: 11px; font-weight: 500; }
-    .breakdown-item .count { font-size: 13px; font-weight: 700; margin-left: 8px; }
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }
+    .breakdown-item .count { font-size: 13px; font-weight: 700; margin-left: 8px; white-space: nowrap; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn { padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }
     .filter-btn.active { background: #111; color: #fff; }
     .filter-btn.inactive { background: #f3f4f6; color: #6b7280; }
     .filter-btn.inactive:hover { background: #e5e7eb; }
-    .search-input { border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 12px; font-size: 13px; width: 200px; outline: none; }
-    .search-input:focus { border-color: #9ca3af; }
-    .btn-export { background: #111; color: #fff; border: none; padding: 6px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    .toolbar-right { display: flex; gap: 8px; align-items: center; }
+    .search-input { border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 12px; font-size: 12px; width: 200px; outline: none; }
+    .btn-export { background: #111; color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; }
     .btn-export:hover { background: #374151; }
-    .btn-new { background: #fff; color: #6b7280; border: 1px solid #e5e7eb; padding: 6px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; }
-    .btn-new:hover { background: #f9fafb; }
-    .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-    .toolbar-right { display: flex; gap: 10px; align-items: center; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    thead th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #f3f4f6; }
+    thead th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #f3f4f6; white-space: nowrap; }
     tbody tr { border-bottom: 1px solid #f9fafb; }
     tbody tr:hover { background: #f9fafb; }
     td { padding: 10px 12px; color: #374151; }
-    td.mono { font-family: monospace; font-size: 11px; color: #6b7280; }
-    td.muted { color: #9ca3af; font-size: 11px; }
     .badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
     .badge-keep { background: #dcfce7; color: #166534; }
     .badge-terminate { background: #fee2e2; color: #991b1b; }
+    .badge-active { background: #dcfce7; color: #166534; }
     .reason-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 500; }
     .empty { text-align: center; padding: 32px; color: #9ca3af; font-size: 13px; }
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .section-title { font-size: 15px; font-weight: 600; color: #111; margin-bottom: 14px; }
+    .section-title { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 12px; }
+    .overflow-x { overflow-x: auto; }
+    .mono { font-family: monospace; font-size: 11px; color: #6b7280; }
+    .muted { color: #9ca3af; font-size: 11px; }
+    .truncate { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>WC Payroll Audit Tool</h1>
-  <p class="subtitle">Upload your CA075 + 3 Prism reports to get instant Keep/Terminate analysis</p>
+  <p class="subtitle">Upload your reports to get instant analysis for both workflows</p>
+
   <div id="upload-section">
     <div class="card">
-      <label class="block">Payroll Month</label>
-      <input type="month" id="payroll-month" />
-      <div class="grid2">
-        <div class="dropzone full" id="dz-main">
-          <div class="dropzone-label">CA075 Report <span class="tag main">Main File</span></div>
-          <div class="dropzone-desc">Upload as Excel (.xlsx, .xls, .csv)</div>
-          <div id="dz-main-status">
-            <label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('main', this)" /></label>
-          </div>
+      <div style="margin-bottom:20px">
+        <div class="section-label">Payroll Month</div>
+        <input type="month" id="payroll-month" onchange="updateRunBtn()" />
+      </div>
+
+      <div class="section-label" style="margin-bottom:10px">CA075 Reports</div>
+      <div class="grid2" style="margin-bottom:20px">
+        <div class="dropzone" id="dz-main">
+          <div class="dz-label">Has Cert, No Payroll <span class="tag tag-main">Main File</span></div>
+          <div class="dz-desc">CA075 – main audit file (.xlsx, .xls, .csv)</div>
+          <div id="dz-main-status"><label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('main',this)"/></label></div>
         </div>
-        <div class="dropzone" id="dz-client">
-          <div class="dropzone-label">Client Report <span class="tag">Prism</span></div>
-          <div class="dropzone-desc">WC Payroll Audit – Client</div>
-          <div id="dz-client-status">
-            <label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('client', this)" /></label>
-          </div>
-        </div>
-        <div class="dropzone" id="dz-employee">
-          <div class="dropzone-label">Employee Report <span class="tag">Prism</span></div>
-          <div class="dropzone-desc">WC Payroll Audit – Employee</div>
-          <div id="dz-employee-status">
-            <label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('employee', this)" /></label>
-          </div>
-        </div>
-        <div class="dropzone" id="dz-payroll">
-          <div class="dropzone-label">Payroll Report <span class="tag">Prism</span></div>
-          <div class="dropzone-desc">WC Payroll Audit – Payroll</div>
-          <div id="dz-payroll-status">
-            <label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('payroll', this)" /></label>
-          </div>
+        <div class="dropzone" id="dz-missing">
+          <div class="dz-label">Missing Clients Report <span class="tag tag-optional">Optional</span></div>
+          <div class="dz-desc">CA07 – missing clients (.xlsx, .xls, .csv)</div>
+          <div id="dz-missing-status"><label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('missing',this)"/></label></div>
         </div>
       </div>
+
+      <div class="section-label" style="margin-bottom:10px">Prism Reports (Shared)</div>
+      <div class="grid3">
+        <div class="dropzone" id="dz-client">
+          <div class="dz-label">Client Report <span class="tag tag-prism">Prism</span></div>
+          <div class="dz-desc">WC Payroll Audit – Client</div>
+          <div id="dz-client-status"><label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('client',this)"/></label></div>
+        </div>
+        <div class="dropzone" id="dz-employee">
+          <div class="dz-label">Employee Report <span class="tag tag-prism">Prism</span></div>
+          <div class="dz-desc">WC Payroll Audit – Employee</div>
+          <div id="dz-employee-status"><label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('employee',this)"/></label></div>
+        </div>
+        <div class="dropzone" id="dz-payroll">
+          <div class="dz-label">Payroll Report <span class="tag tag-prism">Prism</span></div>
+          <div class="dz-desc">WC Payroll Audit – Payroll</div>
+          <div id="dz-payroll-status"><label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile('payroll',this)"/></label></div>
+        </div>
+      </div>
+
       <div id="error-box" style="display:none" class="error"></div>
       <button class="btn-run disabled" id="run-btn" onclick="runAudit()">Run Audit Analysis →</button>
     </div>
   </div>
+
   <div id="results-section" style="display:none"></div>
 </div>
 
 <script>
 const MONOPOLISTIC = ["OH","WA","WY","ND"];
 const REASON_STYLES = {
-  "Deel Compliance": "background:#eff6ff;color:#1d4ed8",
-  "Monopolistic State": "background:#fee2e2;color:#991b1b",
-  "Terminated Client": "background:#fee2e2;color:#991b1b",
-  "Terminated EE": "background:#fff7ed;color:#c2410c",
-  "No EE Existed in State": "background:#fee2e2;color:#991b1b",
-  "Future Payroll Date": "background:#f5f3ff;color:#6d28d9",
-  "Delayed Start Date": "background:#f5f3ff;color:#6d28d9",
-  "In Review": "background:#f9fafb;color:#6b7280",
+  "Deel Compliance":"background:#eff6ff;color:#1d4ed8",
+  "Monopolistic State":"background:#fee2e2;color:#991b1b",
+  "Terminated Client":"background:#fee2e2;color:#991b1b",
+  "Terminated EE":"background:#fff7ed;color:#c2410c",
+  "No EE Existed in State":"background:#fee2e2;color:#991b1b",
+  "Future Payroll Date":"background:#f5f3ff;color:#6d28d9",
+  "Delayed Start Date":"background:#f5f3ff;color:#6d28d9",
+  "In Review":"background:#f9fafb;color:#6b7280",
 };
 
-const files = { main: null, client: null, employee: null, payroll: null };
-let allResults = [];
+const files = {main:null,missing:null,client:null,employee:null,payroll:null};
+let hasCertResults=[], missingResults=[], currentFilter="All", currentSearch="", currentTab="hascert", payrollMonthVal="";
 
-function handleFile(key, input) {
-  const f = input.files[0];
-  if (!f) return;
-  files[key] = f;
-  const statusEl = document.getElementById("dz-" + key + "-status");
-  statusEl.innerHTML = '<span class="file-chosen">✓ ' + f.name + '</span><button class="btn-remove" onclick="removeFile(\'' + key + '\')">Remove</button>';
-  document.getElementById("dz-" + key).classList.add("active");
+function handleFile(key,input){
+  const f=input.files[0]; if(!f) return;
+  files[key]=f;
+  const s=document.getElementById("dz-"+key+"-status");
+  s.innerHTML='<span class="file-chosen">✓ '+f.name+'</span><button class="btn-remove" onclick="removeFile(\''+key+'\')">Remove</button>';
+  document.getElementById("dz-"+key).classList.add("active");
   updateRunBtn();
 }
 
-function removeFile(key) {
-  files[key] = null;
-  const statusEl = document.getElementById("dz-" + key + "-status");
-  statusEl.innerHTML = '<label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(\'' + key + '\', this)" /></label>';
-  document.getElementById("dz-" + key).classList.remove("active");
+function removeFile(key){
+  files[key]=null;
+  document.getElementById("dz-"+key+"-status").innerHTML='<label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(\''+key+'\',this)"/></label>';
+  document.getElementById("dz-"+key).classList.remove("active");
   updateRunBtn();
 }
 
-function updateRunBtn() {
-  const month = document.getElementById("payroll-month").value;
-  const ready = files.main && files.client && files.employee && files.payroll && month;
-  const btn = document.getElementById("run-btn");
-  btn.className = "btn-run " + (ready ? "ready" : "disabled");
+function updateRunBtn(){
+  const month=document.getElementById("payroll-month").value;
+  const ready=files.main&&files.client&&files.employee&&files.payroll&&month;
+  const btn=document.getElementById("run-btn");
+  btn.className="btn-run "+(ready?"ready":"disabled");
 }
 
-document.getElementById("payroll-month").addEventListener("change", updateRunBtn);
+function padId(id){return String(id).trim().padStart(6,"0");}
 
-function padId(id) { return String(id).trim().padStart(6, "0"); }
-
-function extractClientId(val) {
-  if (!val) return "";
-  const str = String(val);
-  const idx = str.indexOf("-");
-  return idx === -1 ? str : str.slice(0, idx);
+function extractClientId(val){
+  if(!val) return "";
+  const s=String(val), idx=s.indexOf("-");
+  return idx===-1?s:s.slice(0,idx);
 }
 
-function extractState(val) {
-  if (!val) return "";
-  return String(val).slice(-2).toUpperCase();
+function extractState(val){if(!val)return"";return String(val).slice(-2).toUpperCase();}
+
+function extractStateMid(val){
+  if(!val)return"";
+  const s=String(val),idx=s.indexOf("-");
+  if(idx===-1)return"";
+  return s.slice(idx+1,idx+3).toUpperCase();
 }
 
-function isDeelClient(name, rawId, colC) {
-  return String(colC).toLowerCase().trim() === "deel" ||
-    String(name).toLowerCase().replace(/\s/g,"").includes("deel") ||
+function isDeelClient(name,rawId,colC){
+  return String(colC).toLowerCase().trim()==="deel"||
+    String(name).toLowerCase().replace(/\s/g,"").includes("deel")||
     String(rawId).toLowerCase().includes("deel");
 }
 
-function parseDate(val) {
-  if (!val) return null;
-  if (val instanceof Date) return val;
-  if (typeof val === "string" && val.includes("/")) {
-    const p = val.split("/");
-    if (p.length === 3) { const d = new Date(parseInt(p[2]), parseInt(p[0])-1, parseInt(p[1])); return isNaN(d)?null:d; }
+function parseDate(val){
+  if(!val)return null;
+  if(val instanceof Date)return val;
+  if(typeof val==="string"&&val.includes("/")){
+    const p=val.split("/");
+    if(p.length===3){const d=new Date(parseInt(p[2]),parseInt(p[0])-1,parseInt(p[1]));return isNaN(d)?null:d;}
   }
-  const d = new Date(val);
-  return isNaN(d) ? null : d;
+  const d=new Date(val);return isNaN(d)?null:d;
 }
 
-function isFutureMonth(date, m, y) {
-  if (!date) return false;
-  if (date.getFullYear() > y) return true;
-  if (date.getFullYear() === y && date.getMonth() > m) return true;
+function isFutureMonth(date,m,y){
+  if(!date)return false;
+  if(date.getFullYear()>y)return true;
+  if(date.getFullYear()===y&&date.getMonth()>m)return true;
   return false;
 }
 
-function isFuturePayrollDate(date, m, y) {
-  if (!date) return false;
-  if (isFutureMonth(date, m, y)) return true;
-  if (date.getFullYear()===y && date.getMonth()===m && date.getDate()>=15) return true;
+function isFuturePayrollDate(date,m,y){
+  if(!date)return false;
+  if(isFutureMonth(date,m,y))return true;
+  if(date.getFullYear()===y&&date.getMonth()===m&&date.getDate()>=15)return true;
   return false;
 }
 
-function readFile(file) {
-  return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = e => { try { res(XLSX.read(e.target.result, {type:"array",cellDates:true})); } catch(err){rej(err);} };
-    reader.onerror = rej;
-    reader.readAsArrayBuffer(file);
+function readFile(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{try{res(XLSX.read(e.target.result,{type:"array",cellDates:true}));}catch(err){rej(err);}};
+    r.onerror=rej;
+    r.readAsArrayBuffer(file);
   });
 }
 
-function sheetToJson(wb) {
-  const sheet = wb.Sheets[wb.SheetNames[0]];
-  return XLSX.utils.sheet_to_json(sheet, {defval:""});
+function sheetToJson(wb){
+  const sheet=wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json(sheet,{defval:""});
 }
 
-async function runAudit() {
-  const month = document.getElementById("payroll-month").value;
-  if (!files.main||!files.client||!files.employee||!files.payroll||!month) return;
-  const btn = document.getElementById("run-btn");
-  btn.innerHTML = '<span class="spinner"></span>Running audit...';
-  btn.className = "btn-run disabled";
-  document.getElementById("error-box").style.display = "none";
+function buildClientMap(data){
+  const map={};
+  data.filter(row=>{
+    const v=String(Object.values(row)[1]||"").trim();
+    return v!==""&&!v.includes("IMPL CLONE ACCOUNT");
+  }).forEach(row=>{
+    const vals=Object.values(row);
+    const raw=String(vals[0]||"").trim();
+    const status=String(vals[2]||"").trim().toUpperCase();
+    map[padId(raw)]=status; map[raw]=status;
+  });
+  return map;
+}
 
-  try {
-    const [mainWb, clientWb, employeeWb, payrollWb] = await Promise.all([
-      readFile(files.main), readFile(files.client), readFile(files.employee), readFile(files.payroll)
+function buildEmployeeMap(data){
+  const map={};
+  data.forEach(row=>{
+    const vals=Object.values(row);
+    const id=padId(String(vals[0]||"").trim());
+    const state=String(vals[2]||"").trim().toUpperCase();
+    const classCode=String(vals[3]||"").trim();
+    const status=String(vals[4]||"").trim();
+    const hireDate=parseDate(vals[5]);
+    const key=id+"."+state;
+    if(!map[key])map[key]=[];
+    map[key].push({status,hireDate,classCode});
+  });
+  return map;
+}
+
+function buildPayrollMap(data){
+  const map={};
+  data.forEach(row=>{
+    const vals=Object.values(row);
+    const id=String(vals[7]||"").trim();
+    const state=String(vals[11]||"").trim().toUpperCase();
+    const payDate=parseDate(vals[10]);
+    const key=id+"."+state;
+    if(!map[key]||(payDate&&payDate>map[key]))map[key]=payDate;
+  });
+  return map;
+}
+
+async function runAudit(){
+  const month=document.getElementById("payroll-month").value;
+  if(!files.main||!files.client||!files.employee||!files.payroll||!month)return;
+  payrollMonthVal=month;
+  const btn=document.getElementById("run-btn");
+  btn.innerHTML='<span class="spinner"></span> Running audit...';
+  btn.className="btn-run disabled";
+  document.getElementById("error-box").style.display="none";
+
+  try{
+    const wbs=await Promise.all([
+      readFile(files.main),readFile(files.client),readFile(files.employee),readFile(files.payroll),
+      files.missing?readFile(files.missing):Promise.resolve(null)
     ]);
+    const [mainWb,clientWb,employeeWb,payrollWb,missingWb]=wbs;
 
-    const mainRaw = sheetToJson(mainWb).filter(row => {
-      const v = String(Object.values(row)[0]||"").trim().toLowerCase();
-      if (v===""||v.includes("peo")||v.includes("client no")) return false;
-      return true;
+    const mainData=sheetToJson(mainWb).filter(row=>{
+      const v=String(Object.values(row)[0]||"").trim().toLowerCase();
+      return v!==""&&!v.includes("peo")&&!v.includes("client no");
     });
-    const clientData = sheetToJson(clientWb).filter(row => {
-      const legalName = String(Object.values(row)[1] || "").trim();
-      if (legalName === "") return false;
-      if (legalName.includes("IMPL CLONE ACCOUNT")) return false;
-      return true;
-    });
-    const employeeData = sheetToJson(employeeWb);
-    const payrollData = sheetToJson(payrollWb);
+    const clientData=sheetToJson(clientWb);
+    const employeeData=sheetToJson(employeeWb);
+    const payrollData=sheetToJson(payrollWb);
 
-    const d = new Date(month+"-01");
-    const year = d.getFullYear(), mon = d.getMonth();
+    const d=new Date(month+"-01");
+    const year=d.getFullYear(),mon=d.getMonth();
 
-    // Build maps
-    const clientMap = {};
-    clientData.forEach(row => {
-      const vals = Object.values(row);
-      const raw = String(vals[0]||"").trim();
-      const status = String(vals[2]||"").trim().toUpperCase();
-      clientMap[padId(raw)] = status;
-      clientMap[raw] = status;
-    });
+    const clientMap=buildClientMap(clientData);
+    const employeeMap=buildEmployeeMap(employeeData);
+    const payrollMap=buildPayrollMap(payrollData);
 
-    const employeeMap = {};
-    employeeData.forEach(row => {
-      const vals = Object.values(row);
-      const id = padId(String(vals[0]||"").trim());
-      const state = String(vals[2]||"").trim().toUpperCase();
-      const status = String(vals[4]||"").trim();
-      const hireDate = parseDate(vals[5]);
-      const key = id+"."+state;
-      if (!employeeMap[key]) employeeMap[key]=[];
-      employeeMap[key].push({status,hireDate});
-    });
+    // Workflow 1
+    hasCertResults=[];
+    const summary={keep:0,terminate:0,review:0,total:0};
+    mainData.forEach((row,idx)=>{
+      const keys=Object.keys(row),vals=Object.values(row);
+      const rawId=row[keys[1]]||row["Group"]||row["Client"]||"";
+      const clientIdCol=row[keys[2]]||row["Client ID"]||"";
+      const clientId=padId(extractClientId(rawId));
+      const state=extractState(rawId);
+      const concat=clientId+"."+state;
+      const clientName=String(vals[2]||row["Client Name"]||"").trim();
+      const setupDate=parseDate(row["Set-Up Date"]||row["Setup Date"]||vals[3]);
+      const lastPayrollDate=parseDate(row["Last Payroll"]||row["Last Payroll Date"]||vals[4]);
+      let decision="",comment="";
 
-    const payrollMap = {};
-    payrollData.forEach(row => {
-      const vals = Object.values(row);
-      const id = String(vals[7]||"").trim();
-      const state = String(vals[11]||"").trim().toUpperCase();
-      const payDate = parseDate(vals[10]);
-      const key = id+"."+state;
-      if (!payrollMap[key]||(payDate&&payDate>payrollMap[key])) payrollMap[key]=payDate;
-    });
+      if(isDeelClient(clientName,rawId,clientIdCol)){decision="Keep";comment="Deel Compliance";}
+      else if(MONOPOLISTIC.includes(state)){decision="Terminate";comment="Monopolistic State";}
+      else if(clientMap[clientId]==="T"){decision="Terminate";comment="Terminated Client";}
+      else if(isFuturePayrollDate(setupDate,mon,year)||isFuturePayrollDate(lastPayrollDate,mon,year)){decision="Keep";comment="Future Payroll Date";}
+      else if(employeeMap[concat]!==undefined){
+        const entries=employeeMap[concat];
+        const statuses=entries.map(e=>String(e.status||"").toLowerCase());
+        const hasActive=statuses.some(s=>!s.includes("terminat")&&!s.includes("leave")&&!s.includes("absence")&&!s.includes("furlough")&&s!=="");
+        const anyLeave=statuses.some(s=>s.includes("leave")||s.includes("absence"));
+        const anyFurlough=statuses.some(s=>s.includes("furlough"));
+        const anyFutureHire=entries.some(e=>e.hireDate&&isFuturePayrollDate(e.hireDate,mon,year));
+        if(anyFutureHire){decision="Keep";comment="Delayed Start Date";}
+        else if(hasActive){decision="Keep";comment="In Review";}
+        else if(anyFurlough){decision="Keep";comment="In Review";}
+        else if(anyLeave){decision="Keep";comment="In Review";}
+        else{decision="Terminate";comment="Terminated EE";}
+      } else if(Object.keys(employeeMap).length>0){decision="Terminate";comment="No EE Existed in State";}
+      else if(payrollMap[concat]){
+        const lp=payrollMap[concat];
+        if(lp&&isFutureMonth(lp,mon,year)){decision="Keep";comment="Future Payroll Date";}
+        else{decision="Keep";comment="In Review";}
+      } else{decision="Keep";comment="In Review";}
 
-    const results = [];
-    const summary = {keep:0,terminate:0,review:0,total:0};
-
-    mainRaw.forEach((row, idx) => {
-      const keys = Object.keys(row);
-      const vals = Object.values(row);
-      const rawId = row[keys[1]]||row["Group"]||row["Client"]||"";
-      const clientIdCol = row[keys[2]]||row["Client ID"]||"";
-      const clientId = padId(extractClientId(rawId));
-      const state = extractState(rawId);
-      const concat = clientId+"."+state;
-      const clientName = String(vals[2]||row["Client Name"]||"").trim();
-      const setupDate = parseDate(row["Set-Up Date"]||row["Setup Date"]||vals[3]);
-      const lastPayrollDate = parseDate(row["Last Payroll"]||row["Last Payroll Date"]||vals[4]);
-
-      let decision="", comment="";
-
-      if (isDeelClient(clientName,rawId,clientIdCol)) {
-        decision="Keep"; comment="Deel Compliance";
-      } else if (MONOPOLISTIC.includes(state)) {
-        decision="Terminate"; comment="Monopolistic State";
-      } else if (clientMap[clientId]==="T") {
-        decision="Terminate"; comment="Terminated Client";
-      } else if (isFuturePayrollDate(setupDate,mon,year)||isFuturePayrollDate(lastPayrollDate,mon,year)) {
-        decision="Keep"; comment="Future Payroll Date";
-      } else if (employeeMap[concat]!==undefined) {
-        const entries = employeeMap[concat];
-        const statuses = entries.map(e=>String(e.status||"").toLowerCase());
-        const hasActive = statuses.some(s=>!s.includes("terminat")&&!s.includes("leave")&&!s.includes("absence")&&!s.includes("furlough")&&s!=="");
-        const anyLeave = statuses.some(s=>s.includes("leave")||s.includes("absence"));
-        const anyFurlough = statuses.some(s=>s.includes("furlough"));
-        const anyFutureHire = entries.some(e=>e.hireDate&&isFuturePayrollDate(e.hireDate,mon,year));
-        if (anyFutureHire) { decision="Keep"; comment="Delayed Start Date"; }
-        else if (hasActive) { decision="Keep"; comment="In Review"; }
-        else if (anyFurlough) { decision="Keep"; comment="In Review"; }
-        else if (anyLeave) { decision="Keep"; comment="In Review"; }
-        else { decision="Terminate"; comment="Terminated EE"; }
-      } else if (Object.keys(employeeMap).length>0) {
-        decision="Terminate"; comment="No EE Existed in State";
-      } else if (payrollMap[concat]) {
-        const lp = payrollMap[concat];
-        if (lp&&isFutureMonth(lp,mon,year)) { decision="Keep"; comment="Future Payroll Date"; }
-        else { decision="Keep"; comment="In Review"; }
-      } else {
-        decision="Keep"; comment="In Review";
-      }
-
-      if (decision==="Keep") summary.keep++;
-      else summary.terminate++;
-      if (comment==="In Review") summary.review++;
+      if(decision==="Keep")summary.keep++;else summary.terminate++;
+      if(comment==="In Review")summary.review++;
       summary.total++;
-
-      results.push({idx:idx+1,rawId,clientId,state,concat,clientName,decision,comment});
+      hasCertResults.push({idx:idx+1,rawId,clientId,state,concat,clientName,decision,comment});
     });
 
-    allResults = results;
-    renderResults(results, summary, month);
+    // Workflow 2
+    missingResults=[];
+    if(missingWb){
+      const missingData=sheetToJson(missingWb).filter(row=>String(Object.values(row)[0]||"").trim()!=="");
+      missingData.forEach((row,idx)=>{
+        const vals=Object.values(row);
+        const rawId=String(vals[0]||"").trim();
+        if(!rawId)return;
+        const clientId=padId(extractClientId(rawId));
+        const state=extractStateMid(rawId);
+        const concat=clientId+"."+state;
+        const entries=employeeMap[concat]||[];
+        let classCode="#N/A",status="#N/A";
+        if(entries.length>0){
+          const active=entries.find(e=>!String(e.status||"").toLowerCase().includes("terminat"));
+          const entry=active||entries[0];
+          classCode=entry.classCode||"#N/A";
+          status=entry.status||"#N/A";
+        }
+        const isErr=v=>!v||v==="#N/A"||String(v).toUpperCase().includes("ERROR")||String(v).toUpperCase()==="T";
+        if(isErr(classCode)||isErr(status))return;
+        missingResults.push({idx:idx+1,rawId,clientId,state,concat,classCode,status});
+      });
+    }
 
-  } catch(err) {
-    const eb = document.getElementById("error-box");
-    eb.textContent = "Processing failed: "+err.message;
-    eb.style.display = "block";
-    btn.innerHTML = "Run Audit Analysis →";
-    btn.className = "btn-run ready";
+    renderResults(summary);
+  }catch(err){
+    const eb=document.getElementById("error-box");
+    eb.textContent="Processing failed: "+err.message;
+    eb.style.display="block";
+    btn.innerHTML="Run Audit Analysis →";
+    btn.className="btn-run ready";
   }
 }
 
-function renderResults(results, summary, month) {
-  document.getElementById("upload-section").style.display = "none";
-  const breakdown = {};
-  results.forEach(r => { breakdown[r.comment]=(breakdown[r.comment]||0)+1; });
+function renderResults(summary){
+  document.getElementById("upload-section").style.display="none";
+  document.getElementById("results-section").style.display="block";
 
-  let breakdownHTML = Object.entries(breakdown).sort((a,b)=>b[1]-a[1]).map(([reason,count])=>{
-    const style = REASON_STYLES[reason]||"background:#f9fafb;color:#6b7280";
+  const breakdown=hasCertResults.reduce((acc,r)=>{acc[r.comment]=(acc[r.comment]||0)+1;return acc;},{});
+  const breakdownHTML=Object.entries(breakdown).sort((a,b)=>b[1]-a[1]).map(([reason,count])=>{
+    const style=REASON_STYLES[reason]||"background:#f9fafb;color:#6b7280";
     return '<div class="breakdown-item" style="'+style+'"><span class="reason">'+reason+'</span><span class="count">'+count+'</span></div>';
   }).join("");
 
-  document.getElementById("results-section").style.display = "block";
-  document.getElementById("results-section").innerHTML = `
-    <div class="summary-grid">
-      <div class="summary-card bg-dark"><div class="val">${summary.total}</div><div class="lbl">Total Records</div></div>
-      <div class="summary-card bg-green"><div class="val">${summary.keep}</div><div class="lbl">Keep</div></div>
-      <div class="summary-card bg-red"><div class="val">${summary.terminate}</div><div class="lbl">Terminate</div></div>
-      <div class="summary-card bg-yellow"><div class="val">${summary.review}</div><div class="lbl">In Review</div></div>
+  const missingTab=missingResults.length>0?'<button class="tab" id="tab-missing" onclick="switchTab(\'missing\')">Missing Clients <span class="tab-badge">'+missingResults.length+'</span></button>':'';
+
+  document.getElementById("results-section").innerHTML=`
+    <div class="tabs">
+      <button class="tab active" id="tab-hascert" onclick="switchTab('hascert')">Has Cert, No Payroll</button>
+      ${missingTab}
+      <button class="btn-new" onclick="resetTool()">↩ New Audit</button>
     </div>
-    <div class="card">
-      <div class="section-title">Breakdown by Reason</div>
-      <div class="breakdown-grid">${breakdownHTML}</div>
-    </div>
-    <div class="card">
-      <div class="toolbar">
-        <div class="filters">
-          <button class="filter-btn active" onclick="setFilter('All',this)">All</button>
-          <button class="filter-btn inactive" onclick="setFilter('Keep',this)">Keep</button>
-          <button class="filter-btn inactive" onclick="setFilter('Terminate',this)">Terminate</button>
-          <button class="filter-btn inactive" onclick="setFilter('In Review',this)">In Review</button>
-        </div>
-        <div class="toolbar-right">
-          <input class="search-input" placeholder="Search client / ID..." oninput="setSearch(this.value)" />
-          <button class="btn-export" onclick="exportExcel('${month}')">Export Excel</button>
-          <button class="btn-new" onclick="resetTool()">New Audit</button>
-        </div>
+    <div id="tab-content-hascert">
+      <div class="summary-grid4">
+        <div class="summary-card bg-dark"><div class="val">${summary.total}</div><div class="lbl">Total Records</div></div>
+        <div class="summary-card bg-green"><div class="val">${summary.keep}</div><div class="lbl">Keep</div></div>
+        <div class="summary-card bg-red"><div class="val">${summary.terminate}</div><div class="lbl">Terminate</div></div>
+        <div class="summary-card bg-yellow"><div class="val">${summary.review}</div><div class="lbl">In Review</div></div>
       </div>
-      <div style="overflow-x:auto">
-        <table>
-          <thead><tr>
-            <th>#</th><th>Client ID</th><th>State</th><th>Client Name</th><th>Decision</th><th>Reason</th>
-          </tr></thead>
-          <tbody id="results-tbody"></tbody>
-        </table>
+      <div class="card">
+        <div class="section-title">Breakdown by Reason</div>
+        <div class="breakdown-grid">${breakdownHTML}</div>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <div class="filters">
+            <button class="filter-btn active" onclick="setFilter('All',this)">All</button>
+            <button class="filter-btn inactive" onclick="setFilter('Keep',this)">Keep</button>
+            <button class="filter-btn inactive" onclick="setFilter('Terminate',this)">Terminate</button>
+            <button class="filter-btn inactive" onclick="setFilter('In Review',this)">In Review</button>
+          </div>
+          <div class="toolbar-right">
+            <input class="search-input" placeholder="Search client / ID..." oninput="setSearch(this.value,'hascert')" />
+            <button class="btn-export" onclick="exportHasCert()">Export Excel</button>
+          </div>
+        </div>
+        <div class="overflow-x"><table>
+          <thead><tr><th>#</th><th>Client ID</th><th>State</th><th>Client Name</th><th>Decision</th><th>Reason</th></tr></thead>
+          <tbody id="hascert-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+    <div id="tab-content-missing" style="display:none">
+      <div class="summary-grid3">
+        <div class="summary-card bg-dark"><div class="val">${missingResults.length}</div><div class="lbl">Active Records</div></div>
+        <div class="summary-card bg-green"><div class="val">${new Set(missingResults.map(r=>r.clientId)).size}</div><div class="lbl">Unique Clients</div></div>
+        <div class="summary-card bg-blue"><div class="val">${new Set(missingResults.map(r=>r.state)).size}</div><div class="lbl">States</div></div>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <input class="search-input" placeholder="Search client / state..." oninput="setSearch(this.value,'missing')" />
+          <button class="btn-export" onclick="exportMissing()">Export CSV for Artex</button>
+        </div>
+        <div class="overflow-x"><table>
+          <thead><tr><th>#</th><th>Group ID</th><th>Client ID</th><th>State</th><th>Concatenate</th><th>Class Code</th><th>Status</th></tr></thead>
+          <tbody id="missing-tbody"></tbody>
+        </table></div>
       </div>
     </div>`;
 
-  renderTable(results);
+  renderHasCertTable(hasCertResults);
+  if(missingResults.length>0)renderMissingTable(missingResults);
 }
 
-let currentFilter = "All", currentSearch = "";
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById("tab-content-hascert").style.display=tab==="hascert"?"block":"none";
+  document.getElementById("tab-content-missing").style.display=tab==="missing"?"block":"none";
+  document.getElementById("tab-hascert").className="tab"+(tab==="hascert"?" active":"");
+  const mt=document.getElementById("tab-missing");
+  if(mt)mt.className="tab"+(tab==="missing"?" active":"");
+}
 
-function setFilter(f, btn) {
-  currentFilter = f;
+function setFilter(f,btn){
+  currentFilter=f;
   document.querySelectorAll(".filter-btn").forEach(b=>b.className="filter-btn inactive");
-  btn.className = "filter-btn active";
-  applyFilters();
+  btn.className="filter-btn active";
+  applyHasCertFilter();
 }
 
-function setSearch(val) {
-  currentSearch = val.toLowerCase();
-  applyFilters();
+function setSearch(val,tab){
+  currentSearch=val.toLowerCase();
+  if(tab==="hascert")applyHasCertFilter();
+  else applyMissingFilter();
 }
 
-function applyFilters() {
-  const filtered = allResults.filter(r => {
-    const mf = currentFilter==="All" || r.decision===currentFilter || (currentFilter==="In Review"&&r.comment==="In Review");
-    const ms = !currentSearch || r.clientName.toLowerCase().includes(currentSearch) || r.clientId.includes(currentSearch);
-    return mf && ms;
+function applyHasCertFilter(){
+  const filtered=hasCertResults.filter(r=>{
+    const mf=currentFilter==="All"||r.decision===currentFilter||(currentFilter==="In Review"&&r.comment==="In Review");
+    const ms=!currentSearch||r.clientName.toLowerCase().includes(currentSearch)||r.clientId.includes(currentSearch);
+    return mf&&ms;
   });
-  renderTable(filtered);
+  renderHasCertTable(filtered);
 }
 
-function renderTable(rows) {
-  const tbody = document.getElementById("results-tbody");
-  if (!tbody) return;
-  if (rows.length===0) { tbody.innerHTML='<tr><td colspan="6" class="empty">No records match your filter</td></tr>'; return; }
-  tbody.innerHTML = rows.map(r => {
-    const style = REASON_STYLES[r.comment]||"background:#f9fafb;color:#6b7280";
-    return `<tr>
+function applyMissingFilter(){
+  const filtered=missingResults.filter(r=>!currentSearch||r.clientId.includes(currentSearch)||r.state.includes(currentSearch.toUpperCase()));
+  renderMissingTable(filtered);
+}
+
+function renderHasCertTable(rows){
+  const tbody=document.getElementById("hascert-tbody");
+  if(!tbody)return;
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No records match your filter</td></tr>';return;}
+  tbody.innerHTML=rows.map(r=>{
+    const style=REASON_STYLES[r.comment]||"background:#f9fafb;color:#6b7280";
+    return`<tr>
       <td class="muted">${r.idx}</td>
       <td class="mono">${r.clientId}</td>
       <td style="color:#6b7280">${r.state}</td>
-      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.clientName||"—"}</td>
+      <td class="truncate">${r.clientName||"—"}</td>
       <td><span class="badge ${r.decision==="Keep"?"badge-keep":"badge-terminate"}">${r.decision}</span></td>
       <td><span class="reason-badge" style="${style}">${r.comment}</span></td>
     </tr>`;
   }).join("");
 }
 
-function exportExcel(month) {
-  const rows = allResults.map(r=>({
-    "Row":r.idx,"Group ID":r.rawId,"Client ID":r.clientId,
-    "State":r.state,"Concatenate":r.concat,"Client Name":r.clientName,
-    "Keep/Terminate":r.decision,"Comments":r.comment
-  }));
-  const ws = XLSX.utils.json_to_sheet(rows);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Audit Results");
-  XLSX.writeFile(wb, "WC_Payroll_Audit_"+month+".xlsx");
+function renderMissingTable(rows){
+  const tbody=document.getElementById("missing-tbody");
+  if(!tbody)return;
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="7" class="empty">No records found</td></tr>';return;}
+  tbody.innerHTML=rows.map(r=>`<tr>
+    <td class="muted">${r.idx}</td>
+    <td style="font-size:11px;color:#374151">${r.rawId}</td>
+    <td class="mono">${r.clientId}</td>
+    <td style="color:#6b7280">${r.state}</td>
+    <td class="mono">${r.concat}</td>
+    <td style="color:#374151">${r.classCode}</td>
+    <td><span class="badge badge-active">${r.status}</span></td>
+  </tr>`).join("");
 }
 
-function resetTool() {
-  allResults = [];
-  currentFilter = "All";
-  currentSearch = "";
+function exportHasCert(){
+  const rows=hasCertResults.map(r=>({"Row":r.idx,"Group ID":r.rawId,"Client ID":r.clientId,"State":r.state,"Concatenate":r.concat,"Client Name":r.clientName,"Keep/Terminate":r.decision,"Comments":r.comment}));
+  const ws=XLSX.utils.json_to_sheet(rows);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,"Audit Results");
+  XLSX.writeFile(wb,"WC_Payroll_Audit_"+payrollMonthVal+".xlsx");
+}
+
+function exportMissing(){
+  const rows=missingResults.map(r=>({"Group ID":r.rawId,"Client ID":r.clientId,"State":r.state,"Concatenate":r.concat,"Class Code":r.classCode,"Status":r.status}));
+  const ws=XLSX.utils.json_to_sheet(rows);
+  const csv=XLSX.utils.sheet_to_csv(ws);
+  const blob=new Blob([csv],{type:"text/csv"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download="Missing_Clients_"+payrollMonthVal+".csv"; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetTool(){
+  hasCertResults=[];missingResults=[];currentFilter="All";currentSearch="";currentTab="hascert";
   Object.keys(files).forEach(k=>files[k]=null);
-  ["main","client","employee","payroll"].forEach(k=>{
-    const el = document.getElementById("dz-"+k+"-status");
-    if(el) el.innerHTML='<label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(\''+k+'\', this)" /></label>';
-    const dz = document.getElementById("dz-"+k);
-    if(dz) dz.classList.remove("active");
+  ["main","missing","client","employee","payroll"].forEach(k=>{
+    const s=document.getElementById("dz-"+k+"-status");
+    if(s)s.innerHTML='<label class="btn-choose">Choose File<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFile(\''+k+'\',this)"/></label>';
+    const dz=document.getElementById("dz-"+k);
+    if(dz)dz.classList.remove("active");
   });
   document.getElementById("payroll-month").value="";
   document.getElementById("run-btn").innerHTML="Run Audit Analysis →";
