@@ -48,7 +48,7 @@
     .breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
     .breakdown-item { border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; background: #f3f4f6; color: #374151; }
     .breakdown-item .reason { font-size: 11px; font-weight: 500; }
-    .breakdown-item .count { font-size: 13px; font-weight: 700; margin-left: 8px; white-space: nowrap; }
+    .breakdown-item .count { font-size: 13px; font-weight: 700; margin-left: 8px; }
     .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
     .filters { display: flex; gap: 6px; flex-wrap: wrap; }
     .filter-btn { padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }
@@ -67,7 +67,6 @@
     .badge-keep { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #dcfce7; color: #166534; }
     .badge-terminate { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #fee2e2; color: #991b1b; }
     .reason-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: #f3f4f6; color: #374151; }
-    .badge-active { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: #dcfce7; color: #166534; }
     .empty { text-align: center; padding: 32px; color: #9ca3af; font-size: 13px; }
     .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -159,10 +158,21 @@ function extractClientId(val){
 
 function extractState(val){ if(!val) return ""; return String(val).slice(-2).toUpperCase(); }
 
-function extractStateMid(val){
+function extractMissingClientId(val){
   if(!val) return "";
-  const s=String(val), idx=s.indexOf("-");
-  return idx===-1?"":s.slice(idx+1,idx+3).toUpperCase();
+  const s=String(val).trim();
+  const spaceIdx=s.indexOf(" ");
+  const clean=spaceIdx!==-1?s.slice(0,spaceIdx):s;
+  const dashIdx=clean.indexOf("-");
+  return dashIdx===-1?clean:clean.slice(0,dashIdx);
+}
+
+function extractMissingState(val){
+  if(!val) return "";
+  const s=String(val).trim();
+  const spaceIdx=s.indexOf(" ");
+  const clean=spaceIdx!==-1?s.slice(0,spaceIdx):s;
+  return clean.slice(-2).toUpperCase();
 }
 
 function isDeelClient(name,rawId,colB){
@@ -231,11 +241,12 @@ function buildEmployeeMap(data){
     const wcCode=String(vals[2]||"").trim();
     const dotIdx=wcCode.indexOf(".");
     const state=dotIdx!==-1?wcCode.slice(0,dotIdx).toUpperCase():wcCode.slice(0,2).toUpperCase();
-    const status=String(vals[3]||"").trim(); // Column D
-    const hireDate=parseDate(vals[4]); // Column E
+    const classCode=dotIdx!==-1?wcCode.slice(dotIdx+1):wcCode.slice(2);
+    const status=String(vals[3]||"").trim();
+    const hireDate=parseDate(vals[4]);
     const key=id+"."+state;
     if(!map[key]) map[key]=[];
-    map[key].push({status,hireDate});
+    map[key].push({status,hireDate,classCode});
   });
   return map;
 }
@@ -265,50 +276,49 @@ async function runAudit(){
       if(colB.includes("peo client")||colB==="no"||colC==="client co name") return false;
       return true;
     });
+
     const clientData=sheetToJson(clientWb);
     const employeeData=sheetToJson(employeeWb);
-
     const d=new Date(month+"-01");
     const year=d.getFullYear(), mon=d.getMonth();
     const clientMap=buildClientMap(clientData);
     const employeeMap=buildEmployeeMap(employeeData);
 
+    // Has Cert analysis
     hasCertResults=[];
     const summary={keep:0,terminate:0,review:0,total:0};
-
     mainData.forEach((row,idx)=>{
       const vals=Object.values(row);
-      const rawId=String(vals[1]||"").trim(); // Column B
+      const rawId=String(vals[1]||"").trim();
       const clientIdCol=String(vals[1]||"").trim();
       const clientId=padId(extractClientId(rawId));
       const state=extractState(rawId);
       const concat=clientId+"."+state;
-      const clientName=String(vals[2]||"").trim(); // Column C
-      const setupDate=parseDate(vals[3]); // Column D
-      const lastPayrollDate=parseDate(vals[4]); // Column E
-
-      let decision="", comment="", flag="";
+      const clientName=String(vals[2]||"").trim();
+      const setupDate=parseDate(vals[3]);
+      const lastPayrollDate=parseDate(vals[4]);
+      let decision="", comment="";
 
       if(isDeelClient(clientName,rawId,clientIdCol)){
-        decision="Keep"; comment="Compliance"; flag="deel";
+        decision="Keep"; comment="Compliance";
       } else if(MONOPOLISTIC.includes(state)){
-        decision="Terminate"; comment="Monopolistic"; flag="monopolistic";
+        decision="Terminate"; comment="Monopolistic";
       } else if(isFuturePayrollDate(setupDate,mon,year)||isFuturePayrollDate(lastPayrollDate,mon,year)){
-        decision="Keep"; comment="New Client"; flag="future";
+        decision="Keep"; comment="New Client";
       } else if(clientMap[clientId]==="T"){
-        decision="Terminate"; comment="Terminated Client"; flag="client-terminated";
+        decision="Terminate"; comment="Terminated Client";
       } else if(employeeMap[concat]!==undefined){
         const entries=employeeMap[concat];
         const statuses=entries.map(e=>String(e.status||"").toLowerCase());
         const anyLeave=statuses.some(s=>s.includes("leave")||s.includes("furlough")||s.includes("absence"));
         const allTerminated=statuses.every(s=>s.includes("terminat"));
         const anyFutureHire=entries.some(e=>e.hireDate&&isFuturePayrollDate(e.hireDate,mon,year));
-        if(anyLeave){ decision="Keep"; comment="Leave"; flag="on-leave"; }
-        else if(allTerminated){ decision="Terminate"; comment="EE Terminated"; flag="ee-missing"; }
-        else if(anyFutureHire){ decision="Keep"; comment="Future Hire"; flag="future"; }
-        else{ decision="Keep"; comment="In Review"; flag="active"; }
+        if(anyLeave){decision="Keep";comment="Leave";}
+        else if(allTerminated){decision="Terminate";comment="EE Terminated";}
+        else if(anyFutureHire){decision="Keep";comment="Future Hire";}
+        else{decision="Keep";comment="In Review";}
       } else {
-        decision="Terminate"; comment="EE Terminated"; flag="ee-missing";
+        decision="Terminate"; comment="EE Terminated";
       }
 
       if(decision==="Keep") summary.keep++; else summary.terminate++;
@@ -317,27 +327,27 @@ async function runAudit(){
       hasCertResults.push({idx:idx+1,rawId,clientId,state,concat,clientName,decision,comment});
     });
 
+    // Missing Clients analysis
     missingResults=[];
     if(missingWb){
       const missingData=sheetToJson(missingWb).filter(row=>String(Object.values(row)[0]||"").trim()!=="");
       missingData.forEach((row,idx)=>{
         const vals=Object.values(row);
-        const rawId=String(vals[0]||"").trim();
-        if(!rawId) return;
-        const clientId=padId(extractClientId(rawId));
-        const state=extractStateMid(rawId);
+        const rawVal=String(vals[0]||"").trim();
+        if(!rawVal) return;
+        const clientId=padId(extractMissingClientId(rawVal));
+        const state=extractMissingState(rawVal);
         const concat=clientId+"."+state;
         const entries=employeeMap[concat]||[];
-        let classCode="#N/A", status="#N/A";
+        let classCode="N/A", status="N/A", decision="Terminate";
         if(entries.length>0){
           const active=entries.find(e=>!String(e.status||"").toLowerCase().includes("terminat"));
           const entry=active||entries[0];
-          classCode=entry.classCode||"#N/A";
-          status=entry.status||"#N/A";
+          classCode=entry.classCode||"N/A";
+          status=entry.status||"N/A";
+          decision=active?"Keep":"Terminate";
         }
-        const isErr=v=>!v||v==="#N/A"||String(v).toUpperCase().includes("ERROR")||String(v).toUpperCase()==="T";
-        if(isErr(classCode)||isErr(status)) return;
-        missingResults.push({idx:idx+1,rawId,clientId,state,concat,classCode,status});
+        missingResults.push({idx:idx+1,rawId:rawVal,clientId,state,concat,classCode,status,decision});
       });
     }
 
@@ -399,18 +409,19 @@ function renderResults(summary){
       </div>
     </div>
     <div id="tab-content-missing" style="display:none">
-      <div class="grid3" style="margin-bottom:20px">
-        <div class="summary-card bg-dark"><div class="val">${missingResults.length}</div><div class="lbl">Active Records</div></div>
-        <div class="summary-card bg-green"><div class="val">${new Set(missingResults.map(r=>r.clientId)).size}</div><div class="lbl">Unique Clients</div></div>
+      <div class="grid4" style="margin-bottom:20px">
+        <div class="summary-card bg-dark"><div class="val">${missingResults.length}</div><div class="lbl">Total Records</div></div>
+        <div class="summary-card bg-green"><div class="val">${missingResults.filter(r=>r.decision==="Keep").length}</div><div class="lbl">Keep</div></div>
+        <div class="summary-card bg-red"><div class="val">${missingResults.filter(r=>r.decision==="Terminate").length}</div><div class="lbl">Terminate</div></div>
         <div class="summary-card bg-blue"><div class="val">${new Set(missingResults.map(r=>r.state)).size}</div><div class="lbl">States</div></div>
       </div>
       <div class="card">
         <div class="toolbar">
           <input class="search-input" placeholder="Search client / state..." oninput="setSearch(this.value,'missing')" />
-          <button class="btn-export" onclick="exportMissing()">Export CSV for Artex</button>
+          <button class="btn-export" onclick="exportMissing()">Export Excel</button>
         </div>
         <div class="overflow-x"><table>
-          <thead><tr><th>#</th><th>Group ID</th><th>Client ID</th><th>State</th><th>Concatenate</th><th>Class Code</th><th>Status</th></tr></thead>
+          <thead><tr><th>#</th><th>Group ID</th><th>Client ID</th><th>State</th><th>Class Code</th><th>Status</th><th>Decision</th></tr></thead>
           <tbody id="missing-tbody"></tbody>
         </table></div>
       </div>
@@ -479,9 +490,9 @@ function renderMissingTable(rows){
     <td style="font-size:11px">${r.rawId}</td>
     <td class="mono">${r.clientId}</td>
     <td style="color:#6b7280">${r.state}</td>
-    <td class="mono">${r.concat}</td>
     <td>${r.classCode}</td>
-    <td><span class="badge-active">${r.status}</span></td>
+    <td style="color:#6b7280">${r.status}</td>
+    <td><span class="${r.decision==="Keep"?"badge-keep":"badge-terminate"}">${r.decision}</span></td>
   </tr>`).join("");
 }
 
@@ -494,14 +505,11 @@ function exportHasCert(){
 }
 
 function exportMissing(){
-  const rows=missingResults.map(r=>({"Group ID":r.rawId,"Client ID":r.clientId,"State":r.state,"Concatenate":r.concat,"Class Code":r.classCode,"Status":r.status}));
+  const rows=missingResults.map(r=>({"Group ID":r.rawId,"Client ID":r.clientId,"State":r.state,"Class Code":r.classCode,"Status":r.status,"Decision":r.decision}));
   const ws=XLSX.utils.json_to_sheet(rows);
-  const csv=XLSX.utils.sheet_to_csv(ws);
-  const blob=new Blob([csv],{type:"text/csv"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url; a.download="Missing_Clients_"+payrollMonthVal+".csv"; a.click();
-  URL.revokeObjectURL(url);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,"Missing Clients");
+  XLSX.writeFile(wb,"Missing_Clients_"+payrollMonthVal+".xlsx");
 }
 
 function resetTool(){
