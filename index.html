@@ -212,6 +212,12 @@ function isDeelClient(name,rawId){
 function parseDate(val){
   if(!val) return null;
   if(val instanceof Date) return val;
+  // Handle Excel serial number
+  if(typeof val==="number"){
+    // Excel serial: days since 1900-01-01 (with leap year bug)
+    const d=new Date(Math.round((val-25569)*86400*1000));
+    return isNaN(d)?null:d;
+  }
   if(typeof val==="string"&&val.includes("/")){
     const p=val.split("/");
     if(p.length===3){const d=new Date(parseInt(p[2]),parseInt(p[0])-1,parseInt(p[1]));return isNaN(d)?null:d;}
@@ -330,7 +336,8 @@ async function runAudit(){
       const state=extractState(rawId);
       const concat=clientId+"."+state;
       const clientName=String(vals[2]||"").trim();
-      const setupDate=parseDate(vals[3])||parseDate(vals[4]); // Column D or E (merged)
+      const setupDate=parseDate(vals[3]);
+      const lastPayrollDate=parseDate(vals[4]);
       let decision="", comment="";
 
       if(isDeelClient(clientName,rawId)){
