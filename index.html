@@ -236,14 +236,16 @@ function isFuturePayrollDate(date,m,y){
 function readFile(file){
   return new Promise((res,rej)=>{
     const r=new FileReader();
-    r.onload=e=>{try{res(XLSX.read(e.target.result,{type:"array",cellDates:true}));}catch(err){rej(err);}};
+    r.onload=e=>{try{res(XLSX.read(e.target.result,{type:"array",cellDates:true,cellNF:true,cellStyles:true}));}catch(err){rej(err);}};
     r.onerror=rej;
     r.readAsArrayBuffer(file);
   });
 }
 
 function sheetToJson(wb){
-  return XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:""});
+  const sheet=wb.Sheets[wb.SheetNames[0]];
+  const date1904=wb.Workbook&&wb.Workbook.WBProps&&wb.Workbook.WBProps.date1904;
+  return XLSX.utils.sheet_to_json(sheet,{defval:"",cellDates:true,date1904:date1904});
 }
 
 function buildClientMap(data){
