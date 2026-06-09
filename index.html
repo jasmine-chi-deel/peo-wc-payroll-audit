@@ -236,7 +236,7 @@ function isFuturePayrollDate(date,m,y){
 function readFile(file){
   return new Promise((res,rej)=>{
     const r=new FileReader();
-    r.onload=e=>{try{res(XLSX.read(e.target.result,{type:"array",cellDates:true,cellNF:true,cellStyles:true}));}catch(err){rej(err);}};
+    r.onload=e=>{try{res(XLSX.read(e.target.result,{type:"array"}));}catch(err){rej(err);}};
     r.onerror=rej;
     r.readAsArrayBuffer(file);
   });
@@ -244,8 +244,7 @@ function readFile(file){
 
 function sheetToJson(wb){
   const sheet=wb.Sheets[wb.SheetNames[0]];
-  const date1904=wb.Workbook&&wb.Workbook.WBProps&&wb.Workbook.WBProps.date1904;
-  return XLSX.utils.sheet_to_json(sheet,{defval:"",cellDates:true,date1904:date1904});
+  return XLSX.utils.sheet_to_json(sheet,{defval:""});
 }
 
 function buildClientMap(data){
@@ -331,8 +330,7 @@ async function runAudit(){
       const state=extractState(rawId);
       const concat=clientId+"."+state;
       const clientName=String(vals[2]||"").trim();
-      const setupDate=parseDate(vals[3]);
-      const lastPayrollDate=parseDate(vals[4]);
+      const setupDate=parseDate(vals[3])||parseDate(vals[4]); // Column D or E (merged)
       let decision="", comment="";
 
       if(isDeelClient(clientName,rawId)){
